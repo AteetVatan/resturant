@@ -16,6 +16,8 @@ const WelcomeSection = () => {
     let isMounted = true;
 
     const fetchOpeningHours = async () => {
+      if (!supabase) return;
+
       const { data, error } = await supabase
         .from("opening_hours")
         .select("*")

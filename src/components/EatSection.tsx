@@ -17,6 +17,8 @@ const EatSection = () => {
     let isMounted = true;
 
     const fetchMenuData = async () => {
+      if (!supabase) return;
+
       try {
         const { data, error } = await supabase
           .from("menu_categories")

@@ -11,6 +11,8 @@ const ContactSection = () => {
     let isMounted = true;
 
     const fetchContactInfo = async () => {
+      if (!supabase) return;
+
       try {
         const { data, error } = await supabase
           .from("contact_info")

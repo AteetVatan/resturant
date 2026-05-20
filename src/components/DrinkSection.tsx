@@ -17,6 +17,8 @@ const DrinkSection = () => {
     let isMounted = true;
 
     const fetchDrinkData = async () => {
+      if (!supabase) return;
+
       try {
         const { data, error } = await supabase
           .from("drink_categories")

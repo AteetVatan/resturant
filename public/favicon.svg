@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1c5f58;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b9e90;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5bc4b5;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fde68a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="80" fill="url(#bg)"/>
+  <rect x="24" y="24" width="464" height="464" rx="64" fill="none" stroke="url(#gold)" stroke-width="4" opacity="0.5"/>
+  <!-- R letter -->
+  <text x="130" y="345" font-family="Georgia, 'Times New Roman', serif" font-size="290" font-weight="bold" fill="url(#gold)" letter-spacing="-10">R</text>
+  <!-- S letter -->
+  <text x="290" y="345" font-family="Georgia, 'Times New Roman', serif" font-size="290" font-weight="bold" fill="white" opacity="0.95" letter-spacing="-10">S</text>
+  <!-- Decorative line -->
+  <line x1="100" y1="400" x2="412" y2="400" stroke="url(#gold)" stroke-width="3" opacity="0.6"/>
+  <!-- Subtitle -->
+  <text x="256" y="445" font-family="Georgia, 'Times New Roman', serif" font-size="36" fill="white" text-anchor="middle" opacity="0.8" letter-spacing="12">ROUIN SAFI</text>
+</svg>
