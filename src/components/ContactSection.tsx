@@ -92,6 +92,13 @@ const ContactSection = () => {
               <div className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--comorin-teal-dark)/0.86)_0%,hsl(var(--comorin-teal-dark)/0.48)_55%,hsl(var(--comorin-teal-dark)/0.18)_100%)]" />
 
               <div className="absolute inset-x-5 bottom-5 grid gap-4 text-white md:grid-cols-2">
+                <div className="contact-tile md:col-span-2">
+                  <MapPin className="h-5 w-5 text-comorin-teal-light" />
+                  <span>
+                    <span className="block text-xs font-bold uppercase tracking-[0.2em] text-white/52">Rouin Safi</span>
+                    <span className="mt-1 block text-lg font-semibold">Where Kabuli rice meets city craft.</span>
+                  </span>
+                </div>
                 {phone && (
                   <a href={`tel:${phone.value.replace(/\s/g, "")}`} className="contact-tile">
                     <Phone className="h-5 w-5 text-comorin-teal-light" />
@@ -141,7 +148,7 @@ const ContactSection = () => {
                 )}
               </div>
 
-              <div className="absolute left-5 top-5 rounded-lg border border-white/12 bg-comorin-teal-dark/35 p-5 text-white backdrop-blur-xl">
+              <div className="absolute left-5 top-5 hidden rounded-lg border border-white/12 bg-comorin-teal-dark/35 p-5 text-white backdrop-blur-xl lg:block">
                 <p className="text-xs font-bold uppercase tracking-[0.28em] text-comorin-teal-light">Rouin Safi</p>
                 <p className="mt-2 max-w-xs text-3xl font-semibold leading-tight">Where Kabuli rice meets city craft.</p>
               </div>
