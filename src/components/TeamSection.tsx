@@ -47,6 +47,8 @@ const TeamSection = () => {
             <img
               src={chefPortrait}
               alt="Afghan-dressed man representing Chef Rouin Safi"
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_52%,hsl(var(--comorin-teal-dark)/0.86)_100%)]" />

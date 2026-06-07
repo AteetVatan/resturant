@@ -1,46 +1,15 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import { ArrowDown, Clock, ExternalLink, ShoppingBag, Sparkles, Utensils } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import ThreeDiningScene from "@/components/ThreeDiningScene";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import restaurantInterior from "@/assets/restaurant-interior.jpg";
-import {
-  dayOrder,
-  fallbackOpeningHours,
-  type OpeningHour,
-} from "@/data/restaurantData";
+import { dayOrder } from "@/data/restaurantData";
+import { useOpeningHours } from "@/hooks/useRestaurantData";
+
+// Pulls in three.js — load it on demand so it stays out of the initial bundle.
+const ThreeDiningScene = lazy(() => import("@/components/ThreeDiningScene"));
 
 const WelcomeSection = () => {
-  const [openingHours, setOpeningHours] = useState<OpeningHour[]>(fallbackOpeningHours);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchOpeningHours = async () => {
-      if (!supabase) return;
-
-      const { data, error } = await supabase
-        .from("opening_hours")
-        .select("*")
-        .order("day_of_week");
-
-      if (!isMounted) return;
-
-      if (error) {
-        console.error("Error fetching opening hours:", error);
-        return;
-      }
-
-      if (data?.length) {
-        setOpeningHours(data);
-      }
-    };
-
-    fetchOpeningHours();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const openingHours = useOpeningHours();
 
   const sortedOpeningHours = [...openingHours]
     .sort((a, b) => dayOrder.indexOf(a.day_of_week) - dayOrder.indexOf(b.day_of_week))
@@ -66,7 +35,11 @@ const WelcomeSection = () => {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--comorin-teal-dark)/0.42)_0%,hsl(var(--comorin-teal-dark)/0.16)_45%,hsl(var(--comorin-teal-dark)/0.72)_100%)]" />
       <div className="absolute inset-0 depth-pattern opacity-70" />
 
-      <ThreeDiningScene />
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <ThreeDiningScene />
+        </Suspense>
+      </ErrorBoundary>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-4 pt-28 sm:px-6 lg:px-8">
         <div className="grid flex-1 items-center gap-10 pb-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,0.7fr)]">
@@ -102,14 +75,16 @@ const WelcomeSection = () => {
                 Explore Menu
                 <ArrowDown className="h-4 w-4 transition group-hover:translate-y-0.5" />
               </button>
-              <button
-                onClick={() => window.open("https://www.lieferando.de", "_blank")}
+              <a
+                href="https://www.lieferando.de"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex h-14 items-center justify-center gap-3 rounded-full border border-white/22 bg-white/10 px-7 text-sm font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-comorin-teal-dark"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Order Online
                 <ExternalLink className="h-4 w-4" />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -132,7 +107,7 @@ const WelcomeSection = () => {
                     className="flex items-center justify-between rounded-lg border border-white/8 bg-white/[0.06] px-4 py-3 text-sm"
                   >
                     <span className="font-medium text-white/78">{item.day}</span>
-                    <span className={item.isClosed ? "font-semibold text-red-200" : "font-semibold text-white"}>
+                    <span className={item.isClosed ? "font-semibold text-destructive" : "font-semibold text-white"}>
                       {item.time}
                     </span>
                   </div>

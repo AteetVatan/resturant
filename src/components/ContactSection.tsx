@@ -1,45 +1,9 @@
-import { useEffect, useState } from "react";
 import { Clock, ExternalLink, Instagram, Mail, MapPin, Phone, ShoppingBag } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import restaurantInterior from "@/assets/restaurant-interior.jpg";
-import { fallbackContactInfo, hasLegacyIndianContact, type ContactInfo } from "@/data/restaurantData";
+import { useContactInfo } from "@/hooks/useRestaurantData";
 
 const ContactSection = () => {
-  const [contactInfo, setContactInfo] = useState<ContactInfo[]>(fallbackContactInfo);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchContactInfo = async () => {
-      if (!supabase) return;
-
-      try {
-        const { data, error } = await supabase
-          .from("contact_info")
-          .select("*")
-          .order("display_order");
-
-        if (!isMounted) return;
-
-        if (error) {
-          console.error("Error fetching contact info:", error);
-          return;
-        }
-
-        if (data?.length) {
-          setContactInfo(hasLegacyIndianContact(data) ? fallbackContactInfo : data);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchContactInfo();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const contactInfo = useContactInfo();
 
   const getContactByType = (type: string) => contactInfo.filter((info) => info.type === type);
   const phone = getContactByType("phone")[0];
@@ -73,14 +37,16 @@ const ContactSection = () => {
                 <Phone className="h-4 w-4" />
                 Call
               </a>
-              <button
-                onClick={() => window.open("https://www.lieferando.de", "_blank")}
+              <a
+                href="https://www.lieferando.de"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex h-14 items-center justify-center gap-3 rounded-full border border-white/22 bg-white/10 px-7 text-sm font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-comorin-teal-dark"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Order
                 <ExternalLink className="h-4 w-4" />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -89,6 +55,8 @@ const ContactSection = () => {
               <img
                 src={restaurantInterior}
                 alt="Rouin Safi restaurant atmosphere"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--comorin-teal-dark)/0.86)_0%,hsl(var(--comorin-teal-dark)/0.48)_55%,hsl(var(--comorin-teal-dark)/0.18)_100%)]" />

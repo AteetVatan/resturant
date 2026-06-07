@@ -1,61 +1,10 @@
-import { useEffect, useState } from "react";
 import { Beer, Coffee, Sparkles, Wine } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import beverages from "@/assets/beverages.jpg";
 import yogurtDrink from "@/assets/drink-yogurt.png";
-import {
-  fallbackDrinkCategories,
-  hasLegacyIndianDrinks,
-  type DrinkCategory,
-  type DrinkItem,
-} from "@/data/restaurantData";
+import { useDrinkCategories } from "@/hooks/useRestaurantData";
 
 const DrinkSection = () => {
-  const [drinkCategories, setDrinkCategories] = useState<DrinkCategory[]>(fallbackDrinkCategories);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchDrinkData = async () => {
-      if (!supabase) return;
-
-      try {
-        const { data, error } = await supabase
-          .from("drink_categories")
-          .select(`
-            *,
-            drink_items (*)
-          `)
-          .order("display_order");
-
-        if (!isMounted) return;
-
-        if (error) {
-          console.error("Error fetching drink data:", error);
-          return;
-        }
-
-        if (data?.length) {
-          const sortedData = data.map((category) => ({
-            ...category,
-            drink_items: [...category.drink_items].sort(
-              (a: DrinkItem, b: DrinkItem) => a.display_order - b.display_order,
-            ),
-          }));
-
-          setDrinkCategories(hasLegacyIndianDrinks(sortedData) ? fallbackDrinkCategories : sortedData);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchDrinkData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const drinkCategories = useDrinkCategories();
 
   return (
     <section id="drink" className="section-band section-band-drink relative isolate overflow-hidden">
@@ -67,11 +16,13 @@ const DrinkSection = () => {
               <img
                 src={beverages}
                 alt="Craft drinks at Rouin Safi"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--comorin-teal-dark)/0.24)_0%,hsl(var(--comorin-teal-dark)/0.78)_100%)]" />
               <div className="absolute left-6 top-6 rounded-full border border-white/20 bg-comorin-teal-dark/30 p-3 backdrop-blur-md">
-                <img src={yogurtDrink} alt="Afghan yogurt drink" className="h-28 w-28 rounded-full object-cover" />
+                <img src={yogurtDrink} alt="Afghan yogurt drink" loading="lazy" decoding="async" className="h-28 w-28 rounded-full object-cover" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <div className="max-w-md">
@@ -121,6 +72,8 @@ const DrinkSection = () => {
                 <img
                   src={category.image_url}
                   alt={category.name}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--comorin-teal-dark)/0)_0%,hsl(var(--comorin-teal-dark)/0.7)_100%)]" />

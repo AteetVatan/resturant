@@ -25,7 +25,11 @@
     --border: 174 20% 80%;
     --input: 0 0% 100%;
     --ring: 174 55% 35%;
-    
+
+    /* Shared across themes via :root cascade; not re-declared per theme. */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
     --comorin-teal: 174 45% 45%;
     --comorin-teal-light: 174 35% 65%;
     --comorin-teal-dark: 174 55% 25%;

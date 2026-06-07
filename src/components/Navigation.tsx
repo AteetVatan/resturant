@@ -50,13 +50,15 @@ const Navigation = () => {
 
           <div className="hidden items-center gap-3 md:flex">
             <ThemeToggle />
-            <button
-              onClick={() => window.open("https://www.lieferando.de", "_blank")}
+            <a
+              href="https://www.lieferando.de"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-11 items-center gap-2 rounded-full bg-comorin-teal px-5 text-sm font-bold uppercase tracking-[0.16em] text-white transition duration-300 hover:-translate-y-0.5 hover:bg-comorin-teal-light"
             >
               <ShoppingBag className="h-4 w-4" />
               Order
-            </button>
+            </a>
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
@@ -87,13 +89,16 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
-              <button
-                onClick={() => window.open("https://www.lieferando.de", "_blank")}
+              <a
+                href="https://www.lieferando.de"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
                 className="mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-comorin-teal px-5 text-sm font-bold uppercase tracking-[0.16em] text-white"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Order Online
-              </button>
+              </a>
             </div>
           </div>
         </div>

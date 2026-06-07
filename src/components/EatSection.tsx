@@ -1,61 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Flame, Leaf, Sparkles, Utensils } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import foodSpread from "@/assets/food-spread.jpg";
 import menuSpices from "@/assets/menu-spices.jpg";
-import {
-  fallbackMenuCategories,
-  hasLegacyIndianMenu,
-  type MenuCategory,
-  type MenuItem,
-} from "@/data/restaurantData";
+import { useMenuCategories } from "@/hooks/useRestaurantData";
 
 const EatSection = () => {
-  const [menuCategories, setMenuCategories] = useState<MenuCategory[]>(fallbackMenuCategories);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchMenuData = async () => {
-      if (!supabase) return;
-
-      try {
-        const { data, error } = await supabase
-          .from("menu_categories")
-          .select(`
-            *,
-            menu_items (*)
-          `)
-          .order("display_order");
-
-        if (!isMounted) return;
-
-        if (error) {
-          console.error("Error fetching menu data:", error);
-          return;
-        }
-
-        if (data?.length) {
-          const sortedData = data.map((category) => ({
-            ...category,
-            menu_items: [...category.menu_items].sort(
-              (a: MenuItem, b: MenuItem) => a.display_order - b.display_order,
-            ),
-          }));
-
-          setMenuCategories(hasLegacyIndianMenu(sortedData) ? fallbackMenuCategories : sortedData);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchMenuData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const menuCategories = useMenuCategories();
 
   const featuredItems = useMemo(
     () =>
@@ -93,12 +43,16 @@ const EatSection = () => {
               <img
                 src={foodSpread}
                 alt="Afghan dishes and pasta served at Rouin Safi"
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--comorin-teal-dark)/0.05)_0%,hsl(var(--comorin-teal-dark)/0.78)_100%)]" />
               <img
                 src={menuSpices}
                 alt="House spices"
+                loading="lazy"
+                decoding="async"
                 className="absolute right-6 top-6 h-24 w-24 rounded-full border border-white/24 object-cover shadow-[0_18px_45px_hsl(var(--comorin-teal-dark)/0.35)]"
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
@@ -125,6 +79,8 @@ const EatSection = () => {
                 <img
                   src={category.image_url}
                   alt={category.name}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--comorin-teal-dark)/0)_0%,hsl(var(--comorin-teal-dark)/0.72)_100%)]" />
