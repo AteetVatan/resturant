@@ -1,5 +1,5 @@
 import { CupSoda, GlassWater, Sparkles, Coffee } from "lucide-react";
-import chaiImage from "@/assets/chai.jpg";
+import chaiDooghAyranImage from "@/assets/chai-doogh-ayran.jpg";
 import kabulLogo from "@/assets/kabul-logo.jpg";
 import { useDrinkCategories } from "@/hooks/useRestaurantData";
 
@@ -14,8 +14,8 @@ const DrinkSection = () => {
           <div className="order-2 depth-stage lg:order-1">
             <div className="feature-plate relative min-h-[560px] overflow-hidden rounded-xl border border-white/12 shadow-[0_40px_120px_hsl(var(--comorin-teal-dark)/0.5)]">
               <img
-                src={chaiImage}
-                alt="Afghanischer Tee bei Kabul Street Kitchen"
+                src={chaiDooghAyranImage}
+                alt="Chai, Doogh und Ayran bei Kabul Street Kitchen"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"

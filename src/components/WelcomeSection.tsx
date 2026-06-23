@@ -49,7 +49,7 @@ const WelcomeSection = () => {
           muted
           playsInline
           preload="auto"
-          className="h-full w-full object-cover object-[center_72%]"
+          className="h-full w-full object-cover object-center"
         />
       </div>
 
