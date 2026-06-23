@@ -108,7 +108,8 @@
     pointer-events: none;
   }
 
-  .hero-three-scene canvas {
+  .hero-three-scene canvas,
+  .hero-three-scene video {
     display: block;
     height: 100%;
     width: 100%;

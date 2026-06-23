@@ -1,13 +1,8 @@
-import { lazy, Suspense } from "react";
 import { ArrowDown, Clock, Flame, Utensils } from "lucide-react";
-import ErrorBoundary from "@/components/ErrorBoundary";
 import grillBackdrop from "@/assets/grill.jpg";
 import kabulLogo from "@/assets/kabul-logo.jpg";
 import { dayOrder } from "@/data/restaurantData";
 import { useOpeningHours } from "@/hooks/useRestaurantData";
-
-// Pulls in three.js — load it on demand so it stays out of the initial bundle.
-const ThreeDiningScene = lazy(() => import("@/components/ThreeDiningScene"));
 
 const dayLabels: Record<string, string> = {
   Monday: "Mo",
@@ -46,11 +41,17 @@ const WelcomeSection = () => {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,hsl(var(--comorin-teal-dark)/0.42)_0%,hsl(var(--comorin-teal-dark)/0.16)_45%,hsl(var(--comorin-teal-dark)/0.72)_100%)]" />
       <div className="absolute inset-0 depth-pattern opacity-70" />
 
-      <ErrorBoundary>
-        <Suspense fallback={null}>
-          <ThreeDiningScene />
-        </Suspense>
-      </ErrorBoundary>
+      <div className="hero-three-scene" aria-hidden="true">
+        <video
+          src="/frontpagevideo.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="h-full w-full object-cover object-[center_72%]"
+        />
+      </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-4 pt-28 sm:px-6 lg:px-8">
         <div className="grid flex-1 items-center gap-10 pb-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,0.7fr)]">
