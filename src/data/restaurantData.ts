@@ -170,7 +170,7 @@ export const fallbackMenuCategories: MenuCategory[] = [
   {
     id: "fallback-grill-spezial",
     name: "Holzkohlegrill Spezial",
-    image_url: "/assets/cat-spezial.jpg",
+    image_url: "/assets/cat-barbecue.jpg",
     display_order: 4,
     description: "Frisch vom Holzkohlegrill – serviert mit Naan und Salat.",
     menu_items: [
