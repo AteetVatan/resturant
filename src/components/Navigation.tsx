@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useTranslation } from "@/i18n/LanguageContext";
 import kabulLogo from "@/assets/kabul-logo.jpg";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const navItems = [
-    { href: "#welcome", label: "Start" },
-    { href: "#eat", label: "Speisekarte" },
-    { href: "#drink", label: "Getränke" },
-    { href: "#team", label: "Geschichte" },
-    { href: "#contact", label: "Kontakt" },
+    { href: "#welcome", label: t.nav.start },
+    { href: "#eat", label: t.nav.menu },
+    { href: "#drink", label: t.nav.drinks },
+    { href: "#team", label: t.nav.story },
+    { href: "#contact", label: t.nav.contact },
   ];
 
   const scrollToSection = (href: string) => {
@@ -26,7 +29,7 @@ const Navigation = () => {
           <button
             onClick={() => scrollToSection("#welcome")}
             className="group flex items-center gap-3 text-left"
-            aria-label="Kabul Street Kitchen Startseite"
+            aria-label={t.nav.homeAria}
           >
             <img
               src={kabulLogo}
@@ -38,31 +41,32 @@ const Navigation = () => {
                 Kabul Street Kitchen
               </span>
               <span className="mt-1 block text-[0.6rem] font-semibold uppercase tracking-[0.32em] text-comorin-teal-light">
-                Vom Holzkohlegrill
+                {t.nav.logoSubtitle}
               </span>
             </span>
           </button>
 
-          <div className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white/70 transition duration-300 hover:bg-white/10 hover:text-white"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+          <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-1 md:flex">
+              {navItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => scrollToSection(item.href)}
+                  className="rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-white/70 transition duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
 
+            <LanguageSwitcher />
 
-          <div className="flex items-center gap-2 md:hidden">
             <Button
               variant="ghost"
               size="icon"
-              className="text-white hover:bg-white/10"
+              className="text-white hover:bg-white/10 md:hidden"
               onClick={() => setIsOpen((value) => !value)}
-              aria-label="Navigation umschalten"
+              aria-label={t.nav.toggleAria}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>

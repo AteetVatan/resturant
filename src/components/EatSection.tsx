@@ -4,10 +4,12 @@ import grillSpread from "@/assets/grill.jpg";
 import kabulLogo from "@/assets/kabul-logo.jpg";
 import { fallbackKabulPlatte } from "@/data/restaurantData";
 import { useMenuCategories } from "@/hooks/useRestaurantData";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const EatSection = () => {
   const menuCategories = useMenuCategories();
   const platte = fallbackKabulPlatte;
+  const { t } = useTranslation();
 
   const featuredItems = useMemo(
     () =>
@@ -30,14 +32,13 @@ const EatSection = () => {
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.28em] text-comorin-teal-light backdrop-blur-md">
               <Flame className="h-4 w-4" />
-              Küche · Holzkohlegrill
+              {t.eat.badge}
             </div>
             <h2 className="font-heading text-[clamp(3.5rem,9vw,8rem)] font-semibold uppercase leading-none tracking-tight text-white">
-              Speisekarte
+              {t.eat.title}
             </h2>
             <p className="mt-6 max-w-xl text-xl leading-8 text-white/76">
-              Vom Holzkohlegrill, frisch und mit Herz zubereitet: Kebabspieße, Kabuli Palaw, Karahi,
-              Döner und Street Pizza – authentische Aromen aus Kabul.
+              {t.eat.intro}
             </p>
           </div>
 
@@ -95,7 +96,7 @@ const EatSection = () => {
 
               <div className="space-y-4 p-5">
                 <p className="min-h-12 text-sm leading-6 text-white/64">
-                  {category.description ?? "Hausgemacht und frisch zubereitet."}
+                  {category.description ?? t.eat.categoryFallback}
                 </p>
                 <div className="space-y-3">
                   {category.menu_items.map((item) => (
@@ -156,8 +157,8 @@ const EatSection = () => {
               <Flame className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-comorin-teal-light">Zubereitung</p>
-              <p className="mt-1 text-lg font-semibold">Vom Holzkohlegrill</p>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-comorin-teal-light">{t.eat.prep}</p>
+              <p className="mt-1 text-lg font-semibold">{t.eat.prepValue}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -165,8 +166,8 @@ const EatSection = () => {
               <Truck className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-comorin-teal-light">Service</p>
-              <p className="mt-1 text-lg font-semibold">Abholung &amp; Lieferung</p>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-comorin-teal-light">{t.eat.service}</p>
+              <p className="mt-1 text-lg font-semibold">{t.eat.serviceValue}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -174,8 +175,8 @@ const EatSection = () => {
               <Utensils className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-comorin-teal-light">Für die Kleinen</p>
-              <p className="mt-1 text-lg font-semibold">Kids Menü 7,00 €</p>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-comorin-teal-light">{t.eat.forKids}</p>
+              <p className="mt-1 text-lg font-semibold">{t.eat.kidsMenu} 7,00 €</p>
             </div>
           </div>
         </div>

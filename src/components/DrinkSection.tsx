@@ -2,9 +2,11 @@ import { CupSoda, GlassWater, Sparkles, Coffee } from "lucide-react";
 import chaiDooghAyranImage from "@/assets/chai-doogh-ayran.jpg";
 import kabulLogo from "@/assets/kabul-logo.jpg";
 import { useDrinkCategories } from "@/hooks/useRestaurantData";
+import { useTranslation } from "@/i18n/LanguageContext";
 
 const DrinkSection = () => {
   const drinkCategories = useDrinkCategories();
+  const { t } = useTranslation();
 
   return (
     <section id="drink" className="section-band section-band-drink relative isolate overflow-hidden">
@@ -26,8 +28,8 @@ const DrinkSection = () => {
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <div className="max-w-md">
-                  <p className="text-xs font-bold uppercase tracking-[0.28em] text-comorin-teal-light">Hausgetränke</p>
-                  <h3 className="mt-3 text-4xl font-semibold leading-tight text-white">Heißer Chai mit Kardamom, frischer Doogh und Ayran.</h3>
+                  <p className="text-xs font-bold uppercase tracking-[0.28em] text-comorin-teal-light">{t.drink.house}</p>
+                  <h3 className="mt-3 text-4xl font-semibold leading-tight text-white">{t.drink.houseHeading}</h3>
                 </div>
               </div>
             </div>
@@ -36,31 +38,30 @@ const DrinkSection = () => {
           <div className="order-1 text-white lg:order-2">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.28em] text-comorin-teal-light backdrop-blur-md">
               <CupSoda className="h-4 w-4" />
-              Bar
+              {t.drink.badge}
             </div>
             <h2 className="font-heading text-[clamp(3.5rem,9vw,8rem)] font-semibold uppercase leading-none tracking-tight">
-              Getränke
+              {t.drink.title}
             </h2>
             <p className="mt-6 max-w-xl text-xl leading-8 text-white/76">
-              Erfrischend und traditionell – afghanischer Tee, Joghurtgetränke und kühle Klassiker
-              zu jedem Gericht.
+              {t.drink.intro}
             </p>
 
             <div className="mt-9 grid gap-4 sm:grid-cols-3">
               <div className="rounded-lg border border-white/10 bg-white/8 p-5 backdrop-blur-md">
                 <Coffee className="h-6 w-6 text-comorin-teal-light" />
                 <p className="mt-4 text-sm uppercase tracking-[0.18em] text-white/52">Chai</p>
-                <p className="mt-1 text-2xl font-semibold">Würzig</p>
+                <p className="mt-1 text-2xl font-semibold">{t.drink.chaiValue}</p>
               </div>
               <div className="rounded-lg border border-white/10 bg-white/8 p-5 backdrop-blur-md">
                 <Sparkles className="h-6 w-6 text-comorin-teal-light" />
                 <p className="mt-4 text-sm uppercase tracking-[0.18em] text-white/52">Doogh</p>
-                <p className="mt-1 text-2xl font-semibold">Frisch</p>
+                <p className="mt-1 text-2xl font-semibold">{t.drink.dooghValue}</p>
               </div>
               <div className="rounded-lg border border-white/10 bg-white/8 p-5 backdrop-blur-md">
                 <GlassWater className="h-6 w-6 text-comorin-teal-light" />
                 <p className="mt-4 text-sm uppercase tracking-[0.18em] text-white/52">Ayran</p>
-                <p className="mt-1 text-2xl font-semibold">Kühl</p>
+                <p className="mt-1 text-2xl font-semibold">{t.drink.ayranValue}</p>
               </div>
             </div>
           </div>
