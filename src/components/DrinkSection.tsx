@@ -66,7 +66,7 @@ const DrinkSection = () => {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-5 sm:grid-cols-2">
+        <div className="mt-16 grid gap-5">
           {drinkCategories.map((category) => (
             <article key={category.id} className="menu-category-card group">
               <div className="relative h-48 overflow-hidden rounded-t-lg">
@@ -83,7 +83,7 @@ const DrinkSection = () => {
                 </h3>
               </div>
 
-              <div className="space-y-3 p-5">
+              <div className="grid gap-x-8 gap-y-3 p-5 sm:grid-cols-2">
                 {category.drink_items.map((item) => (
                   <div key={item.id} className="grid grid-cols-[1fr_auto] gap-3 border-b border-white/10 pb-3 last:border-b-0 last:pb-0">
                     <div>
