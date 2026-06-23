@@ -74,9 +74,9 @@ export default {
 				'comorin-overlay': 'var(--comorin-overlay)'
 			},
 			fontFamily: {
-				heading: ['Cinzel Decorative', 'serif'],
-				body: ['Cinzel', 'serif'],
-				logo: ['Cinzel Decorative', 'serif']
+				heading: ['Oswald', 'sans-serif'],
+				body: ['Inter', 'system-ui', 'sans-serif'],
+				logo: ['Anton', 'Oswald', 'sans-serif']
 			},
 			boxShadow: {
 				elegant: 'var(--shadow-elegant)',

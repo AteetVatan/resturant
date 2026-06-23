@@ -5,9 +5,9 @@ import {
   fallbackDrinkCategories,
   fallbackMenuCategories,
   fallbackOpeningHours,
-  hasLegacyIndianContact,
-  hasLegacyIndianDrinks,
-  hasLegacyIndianMenu,
+  hasStaleContact,
+  hasStaleDrinks,
+  hasStaleMenu,
   type ContactInfo,
   type DrinkCategory,
   type DrinkItem,
@@ -46,7 +46,7 @@ const fetchMenuCategories = async (): Promise<MenuCategory[]> => {
     ),
   })) as MenuCategory[];
 
-  return hasLegacyIndianMenu(sorted) ? fallbackMenuCategories : sorted;
+  return hasStaleMenu(sorted) ? fallbackMenuCategories : sorted;
 };
 
 export function useMenuCategories(): MenuCategory[] {
@@ -78,7 +78,7 @@ const fetchDrinkCategories = async (): Promise<DrinkCategory[]> => {
     ),
   })) as DrinkCategory[];
 
-  return hasLegacyIndianDrinks(sorted) ? fallbackDrinkCategories : sorted;
+  return hasStaleDrinks(sorted) ? fallbackDrinkCategories : sorted;
 };
 
 export function useDrinkCategories(): DrinkCategory[] {
@@ -103,7 +103,7 @@ const fetchContactInfo = async (): Promise<ContactInfo[]> => {
   if (error) throw error;
   if (!data?.length) return fallbackContactInfo;
 
-  return hasLegacyIndianContact(data) ? fallbackContactInfo : (data as ContactInfo[]);
+  return hasStaleContact(data) ? fallbackContactInfo : (data as ContactInfo[]);
 };
 
 export function useContactInfo(): ContactInfo[] {
